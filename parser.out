@@ -1,0 +1,230 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> expression
+Rule 1     expression -> expression CONJUNCTION expression
+Rule 2     expression -> LPAREN expression RPAREN
+Rule 3     expression -> clause
+Rule 4     clause -> literal IMPLICATION literal
+Rule 5     clause -> literal DISJUNCTION literal
+Rule 6     clause -> literal
+Rule 7     literal -> NEGATION literal
+Rule 8     literal -> VAR
+
+Terminals, with rules where they appear
+
+CONJUNCTION          : 1
+DISJUNCTION          : 5
+IMPLICATION          : 4
+LPAREN               : 2
+NEGATION             : 7
+RPAREN               : 2
+VAR                  : 8
+error                : 
+
+Nonterminals, with rules where they appear
+
+clause               : 3
+expression           : 1 1 2 0
+literal              : 4 4 5 5 6 7
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . expression
+    (1) expression -> . expression CONJUNCTION expression
+    (2) expression -> . LPAREN expression RPAREN
+    (3) expression -> . clause
+    (4) clause -> . literal IMPLICATION literal
+    (5) clause -> . literal DISJUNCTION literal
+    (6) clause -> . literal
+    (7) literal -> . NEGATION literal
+    (8) literal -> . VAR
+
+    LPAREN          shift and go to state 2
+    NEGATION        shift and go to state 5
+    VAR             shift and go to state 6
+
+    expression                     shift and go to state 1
+    clause                         shift and go to state 3
+    literal                        shift and go to state 4
+
+state 1
+
+    (0) S' -> expression .
+    (1) expression -> expression . CONJUNCTION expression
+
+    CONJUNCTION     shift and go to state 7
+
+
+state 2
+
+    (2) expression -> LPAREN . expression RPAREN
+    (1) expression -> . expression CONJUNCTION expression
+    (2) expression -> . LPAREN expression RPAREN
+    (3) expression -> . clause
+    (4) clause -> . literal IMPLICATION literal
+    (5) clause -> . literal DISJUNCTION literal
+    (6) clause -> . literal
+    (7) literal -> . NEGATION literal
+    (8) literal -> . VAR
+
+    LPAREN          shift and go to state 2
+    NEGATION        shift and go to state 5
+    VAR             shift and go to state 6
+
+    expression                     shift and go to state 8
+    clause                         shift and go to state 3
+    literal                        shift and go to state 4
+
+state 3
+
+    (3) expression -> clause .
+
+    CONJUNCTION     reduce using rule 3 (expression -> clause .)
+    $end            reduce using rule 3 (expression -> clause .)
+    RPAREN          reduce using rule 3 (expression -> clause .)
+
+
+state 4
+
+    (4) clause -> literal . IMPLICATION literal
+    (5) clause -> literal . DISJUNCTION literal
+    (6) clause -> literal .
+
+    IMPLICATION     shift and go to state 9
+    DISJUNCTION     shift and go to state 10
+    CONJUNCTION     reduce using rule 6 (clause -> literal .)
+    $end            reduce using rule 6 (clause -> literal .)
+    RPAREN          reduce using rule 6 (clause -> literal .)
+
+
+state 5
+
+    (7) literal -> NEGATION . literal
+    (7) literal -> . NEGATION literal
+    (8) literal -> . VAR
+
+    NEGATION        shift and go to state 5
+    VAR             shift and go to state 6
+
+    literal                        shift and go to state 11
+
+state 6
+
+    (8) literal -> VAR .
+
+    IMPLICATION     reduce using rule 8 (literal -> VAR .)
+    DISJUNCTION     reduce using rule 8 (literal -> VAR .)
+    CONJUNCTION     reduce using rule 8 (literal -> VAR .)
+    $end            reduce using rule 8 (literal -> VAR .)
+    RPAREN          reduce using rule 8 (literal -> VAR .)
+
+
+state 7
+
+    (1) expression -> expression CONJUNCTION . expression
+    (1) expression -> . expression CONJUNCTION expression
+    (2) expression -> . LPAREN expression RPAREN
+    (3) expression -> . clause
+    (4) clause -> . literal IMPLICATION literal
+    (5) clause -> . literal DISJUNCTION literal
+    (6) clause -> . literal
+    (7) literal -> . NEGATION literal
+    (8) literal -> . VAR
+
+    LPAREN          shift and go to state 2
+    NEGATION        shift and go to state 5
+    VAR             shift and go to state 6
+
+    expression                     shift and go to state 12
+    clause                         shift and go to state 3
+    literal                        shift and go to state 4
+
+state 8
+
+    (2) expression -> LPAREN expression . RPAREN
+    (1) expression -> expression . CONJUNCTION expression
+
+    RPAREN          shift and go to state 13
+    CONJUNCTION     shift and go to state 7
+
+
+state 9
+
+    (4) clause -> literal IMPLICATION . literal
+    (7) literal -> . NEGATION literal
+    (8) literal -> . VAR
+
+    NEGATION        shift and go to state 5
+    VAR             shift and go to state 6
+
+    literal                        shift and go to state 14
+
+state 10
+
+    (5) clause -> literal DISJUNCTION . literal
+    (7) literal -> . NEGATION literal
+    (8) literal -> . VAR
+
+    NEGATION        shift and go to state 5
+    VAR             shift and go to state 6
+
+    literal                        shift and go to state 15
+
+state 11
+
+    (7) literal -> NEGATION literal .
+
+    IMPLICATION     reduce using rule 7 (literal -> NEGATION literal .)
+    DISJUNCTION     reduce using rule 7 (literal -> NEGATION literal .)
+    CONJUNCTION     reduce using rule 7 (literal -> NEGATION literal .)
+    $end            reduce using rule 7 (literal -> NEGATION literal .)
+    RPAREN          reduce using rule 7 (literal -> NEGATION literal .)
+
+
+state 12
+
+    (1) expression -> expression CONJUNCTION expression .
+    (1) expression -> expression . CONJUNCTION expression
+
+  ! shift/reduce conflict for CONJUNCTION resolved as shift
+    $end            reduce using rule 1 (expression -> expression CONJUNCTION expression .)
+    RPAREN          reduce using rule 1 (expression -> expression CONJUNCTION expression .)
+    CONJUNCTION     shift and go to state 7
+
+  ! CONJUNCTION     [ reduce using rule 1 (expression -> expression CONJUNCTION expression .) ]
+
+
+state 13
+
+    (2) expression -> LPAREN expression RPAREN .
+
+    CONJUNCTION     reduce using rule 2 (expression -> LPAREN expression RPAREN .)
+    $end            reduce using rule 2 (expression -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 2 (expression -> LPAREN expression RPAREN .)
+
+
+state 14
+
+    (4) clause -> literal IMPLICATION literal .
+
+    CONJUNCTION     reduce using rule 4 (clause -> literal IMPLICATION literal .)
+    $end            reduce using rule 4 (clause -> literal IMPLICATION literal .)
+    RPAREN          reduce using rule 4 (clause -> literal IMPLICATION literal .)
+
+
+state 15
+
+    (5) clause -> literal DISJUNCTION literal .
+
+    CONJUNCTION     reduce using rule 5 (clause -> literal DISJUNCTION literal .)
+    $end            reduce using rule 5 (clause -> literal DISJUNCTION literal .)
+    RPAREN          reduce using rule 5 (clause -> literal DISJUNCTION literal .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for CONJUNCTION in state 12 resolved as shift
